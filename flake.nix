@@ -41,8 +41,8 @@
             packages = with pkgs; [
               go
               gopls
+              gotools
               vhs
-              self'.packages.go-tools
             ];
 
             env = {
@@ -57,7 +57,6 @@
           };
 
           packages.default = pkgs.callPackage ./package.nix { };
-          packages.go-tools = pkgs.callPackage ./go-tools.nix { };
 
           packages.tape = pkgs.writeShellApplication {
             name = "tape";
