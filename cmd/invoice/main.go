@@ -12,7 +12,9 @@ import (
 	"github.com/maaslalani/invoice/invoice"
 	"gopkg.in/yaml.v3"
 
+	"github.com/charmbracelet/glamour"
 	"github.com/spf13/cobra"
+	"github.com/spf13/cobra/doc"
 	"github.com/spf13/viper"
 )
 
@@ -136,8 +138,32 @@ var yamlCmd = &cobra.Command{
 	},
 }
 
+var docsCmd = &cobra.Command{
+	Use:   "docs",
+	Short: "Show docs",
+	Long:  "Generate and render docs for the invoice generate command",
+	RunE: func(cmd *cobra.Command, args []string) error {
+		var buf = new(strings.Builder)
+		err := doc.GenMarkdown(generateCmd, buf)
+		if err != nil {
+			return err
+		}
+
+		var md = buf.String()
+		md, _, _ = strings.Cut(md, "\n### SEE ALSO")
+
+		out, err := glamour.Render(md, "dark")
+		if err != nil {
+			return err
+		}
+
+		println(out)
+		return nil
+	},
+}
+
 func main() {
-	rootCmd.AddCommand(generateCmd, jsonCmd, yamlCmd)
+	rootCmd.AddCommand(generateCmd, jsonCmd, yamlCmd, docsCmd)
 	err := rootCmd.Execute()
 	if err != nil {
 		log.Fatal(err)
