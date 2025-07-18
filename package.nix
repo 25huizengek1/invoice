@@ -11,7 +11,7 @@ buildGoModule (finalAttrs: {
 
   src = ./.;
 
-  vendorHash = "sha256-ZZnakxVKsAkfPx5dhryIhlbr9ofbMF22k1yZRqcfXzU=";
+  vendorHash = "sha256-rbUFF3sIS18uEe9juid54L1fku4a+n1KHy8WctXabUQ=";
 
   nativeBuildInputs = [
     installShellFiles
@@ -22,6 +22,9 @@ buildGoModule (finalAttrs: {
         --bash <($out/bin/invoice completion bash) \
         --fish <($out/bin/invoice completion fish) \
         --zsh <($out/bin/invoice completion zsh)
+
+    $out/bin/invoice man > invoice.1
+    installManPage invoice.1 
   '';
 
   meta = {

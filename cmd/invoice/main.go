@@ -1,17 +1,18 @@
 package main
 
 import (
+	"context"
 	"encoding/json"
 	"errors"
 	"flag"
 	"fmt"
-	"log"
 	"os"
 	"strings"
 
 	"github.com/maaslalani/invoice/invoice"
 	"gopkg.in/yaml.v3"
 
+	"github.com/charmbracelet/fang"
 	"github.com/charmbracelet/glamour"
 	"github.com/spf13/cobra"
 	"github.com/spf13/cobra/doc"
@@ -164,8 +165,7 @@ var docsCmd = &cobra.Command{
 
 func main() {
 	rootCmd.AddCommand(generateCmd, jsonCmd, yamlCmd, docsCmd)
-	err := rootCmd.Execute()
-	if err != nil {
-		log.Fatal(err)
+	if err := fang.Execute(context.Background(), rootCmd); err != nil {
+		os.Exit(1)
 	}
 }
