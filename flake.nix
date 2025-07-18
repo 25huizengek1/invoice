@@ -35,6 +35,9 @@
           treefmt = {
             programs.nixfmt.enable = true;
             programs.gofmt.enable = true;
+            programs.goimports.enable = true;
+            programs.shellcheck.enable = true;
+            programs.yamlfmt.enable = true;
           };
 
           devShells.default = pkgs.mkShell {

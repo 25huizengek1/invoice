@@ -1,5 +1,6 @@
 #!/usr/bin/env nix
 #!nix develop --command bash
+# shellcheck shell=bash
 
 go run cmd/invoice/main.go \
     generate --from "Dream, Inc." --to "Imagine, Inc." \
