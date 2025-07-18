@@ -1,4 +1,4 @@
-package main
+package invoice
 
 var currencySymbols = map[string]string{
 	"USD": "$",
@@ -11,4 +11,12 @@ var currencySymbols = map[string]string{
 	"KRW": "₩",
 	"BRL": "R$",
 	"SGD": "SGD$",
+}
+
+func getCurrencySymbol(currency string) string {
+	symbol, ok := currencySymbols[currency]
+	if !ok {
+		return currency
+	}
+	return symbol
 }
